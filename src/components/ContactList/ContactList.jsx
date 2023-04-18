@@ -7,7 +7,7 @@ import { deleteContact, fetchContacts, fetchFilter } from 'redux/slice';
 export const List = () => {
   const dispatch = useDispatch();
   const count = useSelector(fetchContacts);
-  console.log(count);
+
   const count1 = useSelector(fetchFilter);
   return (
     <ul className={css.list}>
