@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import css from './Filter.module.css';
-const Filter = ({ value, filter }) => {
+const Filter = () => {
   return (
     <div className={css.filter}>
       <label>
         Find contacts by name
-        <input className={css.input} value={value} onChange={filter} />
+        <input className={css.input}  />
       </label>
     </div>
   );
@@ -13,7 +13,7 @@ const Filter = ({ value, filter }) => {
 
 export default Filter;
 
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  filter: PropTypes.func.isRequired,
-};
+// Filter.propTypes = {
+//   value: PropTypes.string.isRequired,
+//   filter: PropTypes.func.isRequired,
+// };

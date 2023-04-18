@@ -1,34 +1,20 @@
 import { useState } from 'react';
 import css from './ContactForm.module.css';
 
-function Form({ onSubmit }) {
-  //   state = {
-  //     name: '',
-  //     number: '',
-  //   };
+import { Notify } from 'notiflix';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, fetchContacts } from 'redux/slice';
+import { nanoid } from '@reduxjs/toolkit';
 
-  //   nameChange = e => {
-  //     this.setState({ name: e.currentTarget.value });
-  //   };
-
-  //   numberChange = e => {
-  //     this.setState({ number: e.currentTarget.value });
-  //   };
-
-  //   handleSubmit = e => {
-  //     e.preventDefault();
-  //     this.props.onSubmit(this.state);
-  //     this.reset();
-  //   };
-
-  //   reset = () => {
-  //     this.setState({ name: '', number: '' });
-  //   };
-
+function Form() {
   const [dataForm, setDataForm] = useState({
     name: '',
     number: '',
   });
+
+  const contacts = useSelector(fetchContacts);
+
+  const dispatch = useDispatch();
 
   const nameChange = event => {
     const { name, value } = event.target;
@@ -40,8 +26,12 @@ function Form({ onSubmit }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit(dataForm);
-
+    for (const contact of contacts) {
+      if (contact.name === dataForm.name) {
+        return Notify.failure(`${dataForm.name} is already in contacts.`);
+      }
+    }
+    dispatch(addContact({ ...dataForm, id: nanoid() }));
     reset();
   };
 
